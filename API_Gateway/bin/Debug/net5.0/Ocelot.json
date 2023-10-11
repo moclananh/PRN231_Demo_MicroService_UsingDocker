@@ -10,7 +10,7 @@
         }
       ],
       "UpstreamPathTemplate": "/apiGateway/Customers",
-      "UpstreamHttpMethod": [ "GET", "PUT", "POST" ]
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "DELETE"]
     },
     {
       "DownstreamPathTemplate": "/api/Products",
@@ -22,7 +22,31 @@
         }
       ],
       "UpstreamPathTemplate": "/apiGateway/Products",
-      "UpstreamHttpMethod": [ "GET", "PUT", "POST" ]
+      "UpstreamHttpMethod": [ "GET", "PUT", "POST", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Customers/{id}", // This includes {id} to capture the product ID.
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 3000
+        }
+      ],
+      "UpstreamPathTemplate": "/apiGateway/Customers/{id}", // Include {id} in the upstream path.
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Products/{id}", // This includes {id} to capture the product ID.
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 3001
+        }
+      ],
+      "UpstreamPathTemplate": "/apiGateway/Products/{id}", // Include {id} in the upstream path.
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ]
 }

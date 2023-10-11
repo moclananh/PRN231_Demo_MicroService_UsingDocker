@@ -20,7 +20,7 @@ namespace Client_Service.Controllers
             client = new HttpClient();
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");
             client.DefaultRequestHeaders.Accept.Add(contentType);
-            ProductApiUrl = "https://localhost:44304/apiGateway/Customers";
+            ProductApiUrl = "https://localhost:7001/apiGateway/Customers";
         }
 
         // GET: Products
