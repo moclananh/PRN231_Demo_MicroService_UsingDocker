@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    var Data = ViewBag.Data;
+}
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</p>
+
+<table class="table" id="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Address
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Data)
+        {
+            <tr>
+                <td>
+                    <div>@item.CusId</div>
+                </td>
+                <td>
+                    <div>@item.CusName</div>
+                </td>
+                <td>
+                    <div>@item.CusAddress</div>
+                </td>
+               
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CusId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.CusId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CusId">Delete</a>
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>
