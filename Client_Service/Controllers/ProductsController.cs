@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Client_Service.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Net.Http;
@@ -6,21 +7,20 @@ using System.Text.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System;
-using Client_Service.Models;
 
 namespace Client_Service.Controllers
 {
-    public class CustomersController : Controller
+    public class ProductsController : Controller
     {
         private readonly HttpClient client = null;
         private string ProductApiUrl = "";
 
-        public CustomersController()
+        public ProductsController()
         {
             client = new HttpClient();
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");
             client.DefaultRequestHeaders.Accept.Add(contentType);
-            ProductApiUrl = "https://localhost:7001/apiGateway/Customers";
+            ProductApiUrl = "https://localhost:7001/apiGateway/Products";
         }
 
         // GET: Products
@@ -31,9 +31,9 @@ namespace Client_Service.Controllers
 
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-            List<Customers> list = JsonSerializer.Deserialize<List<Customers>>(stringData, options);
+            List<Products> list = JsonSerializer.Deserialize<List<Products>>(stringData, options);
 
-            
+
             return View(list);
         }
 
@@ -48,7 +48,7 @@ namespace Client_Service.Controllers
             try
             {
                 // Make a request to your API to get the product by id
-                HttpResponseMessage productResponse = await client.GetAsync($"https://localhost:7001/apiGateway/Customers/{id}");
+                HttpResponseMessage productResponse = await client.GetAsync($"https://localhost:7001/apiGateway/Products/{id}");
 
                 if (productResponse.IsSuccessStatusCode)
                 {
@@ -57,9 +57,9 @@ namespace Client_Service.Controllers
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    Customers cus = JsonSerializer.Deserialize<Customers>(Data, options);
-                   
-                    return View(cus);
+                    Products Pro = JsonSerializer.Deserialize<Products>(Data, options);
+
+                    return View(Pro);
 
                 }
             }
@@ -90,11 +90,11 @@ namespace Client_Service.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Customers customer)
+        public async Task<IActionResult> Create(Products Product)
         {
             if (ModelState.IsValid)
             {
-                var content = new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, "application/json");
+                var content = new StringContent(JsonSerializer.Serialize(Product), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(ProductApiUrl, content);
 
                 if (response.IsSuccessStatusCode)
@@ -108,7 +108,7 @@ namespace Client_Service.Controllers
                     ModelState.AddModelError(string.Empty, "Error creating the member.");
                 }
             }
-            return View(customer);
+            return View(Product);
         }
 
 
@@ -123,7 +123,7 @@ namespace Client_Service.Controllers
             try
             {
                 // Make a request to your API to get the product by id
-                HttpResponseMessage productResponse = await client.GetAsync($"https://localhost:7001/apiGateway/Customers/{id}");
+                HttpResponseMessage productResponse = await client.GetAsync($"https://localhost:7001/apiGateway/Products/{id}");
 
                 if (productResponse.IsSuccessStatusCode)
                 {
@@ -132,8 +132,8 @@ namespace Client_Service.Controllers
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    Customers customer = JsonSerializer.Deserialize<Customers>(productData, options);
-                    return View(customer);
+                    Products Product = JsonSerializer.Deserialize<Products>(productData, options);
+                    return View(Product);
                 }
             }
             catch (Exception ex)
@@ -149,17 +149,17 @@ namespace Client_Service.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Customers customer)
+        public async Task<IActionResult> Edit(int id, Products Product)
         {
-            if (id != customer.CusId)
+            if (id != Product.ProId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                var content = new StringContent(JsonSerializer.Serialize(customer), Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync($"https://localhost:7001/apiGateway/Customers/{id}", content);
+                var content = new StringContent(JsonSerializer.Serialize(Product), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PutAsync($"https://localhost:7001/apiGateway/Products/{id}", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -172,7 +172,7 @@ namespace Client_Service.Controllers
                     ModelState.AddModelError(string.Empty, "Error updating the product.");
                 }
             }
-            return View(customer);
+            return View(Product);
         }
 
         // GET: Products/Delete/5
@@ -186,7 +186,7 @@ namespace Client_Service.Controllers
             try
             {
                 // Make a request to your API to get the product by id
-                HttpResponseMessage productResponse = await client.GetAsync($"https://localhost:7001/apiGateway/Customers/{id}");
+                HttpResponseMessage productResponse = await client.GetAsync($"https://localhost:7001/apiGateway/Products/{id}");
 
                 if (productResponse.IsSuccessStatusCode)
                 {
@@ -195,8 +195,8 @@ namespace Client_Service.Controllers
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    Customers customer = JsonSerializer.Deserialize<Customers>(productData, options);
-                    return View(customer);
+                    Products Product = JsonSerializer.Deserialize<Products>(productData, options);
+                    return View(Product);
                 }
             }
             catch (Exception ex)

@@ -1,49 +1,47 @@
-﻿@{
-    ViewData["Title"] = "Index";
-    var Data = ViewBag.Data;
-}
-<p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
-</p>
+﻿@model IEnumerable<Client_Service.Models.Customers>
 
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Customer List</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
 <table class="table" id="table">
     <thead>
         <tr>
             <th>
-                Id
+                @Html.DisplayNameFor(model => model.CusId)
             </th>
             <th>
-                Name
+                @Html.DisplayNameFor(model => model.CusName)
             </th>
             <th>
-                Address
+                @Html.DisplayNameFor(model => model.CusAddress)
             </th>
-           
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Data)
-        {
-            <tr>
-                <td>
-                    <div>@item.CusId</div>
-                </td>
-                <td>
-                    <div>@item.CusName</div>
-                </td>
-                <td>
-                    <div>@item.CusAddress</div>
-                </td>
-               
-
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.CusId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.CusId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.CusId">Delete</a>
-                </td>
-            </tr>
-        }
-        
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CusId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CusName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CusAddress)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.CusId  }) |
+                @Html.ActionLink("Details", "Details", new {  id=item.CusId  }) |
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.CusId  })
+            </td>
+        </tr>
+}
     </tbody>
 </table>

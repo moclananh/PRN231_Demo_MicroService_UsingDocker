@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Client_Service.Models.Products>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table" id="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProDes)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProDes)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.ProId  }) |
+                    @Html.ActionLink("Details", "Details", new {id=item.ProId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ProId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
